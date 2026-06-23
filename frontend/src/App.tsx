@@ -5,11 +5,14 @@ import "./App.css";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+  // get_windows 임시 테스트용 — 사이드바 구현 시 교체될 자리.
+  async function getWindows() {
+    try {
+      setGreetMsg(await invoke("get_windows"));
+    } catch (err) {
+      setGreetMsg(String(err));
+    }
   }
 
   return (
@@ -29,21 +32,10 @@ function App() {
       </div>
       <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
+      <div className="row">
+        <button onClick={getWindows}>Greet</button>
+      </div>
+      <p style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>{greetMsg}</p>
     </main>
   );
 }
