@@ -1,5 +1,5 @@
 """Python 사이드카 진입점. Phase 1: DB 초기화 + 동작 확인용 최소 실행."""
-from project_manager import init_db
+from shared.db import init_db
 from shared.logger import get_logger
 from window_manager import list_windows
 
